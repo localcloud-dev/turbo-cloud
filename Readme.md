@@ -54,7 +54,7 @@ curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turboclou
 ## Cloud Providers to Avoid
 We don't recommend using AWS, Google Cloud, or Azure because:
 - They're overengineered and way too expensive
-- Someone's gotta pay for all their free tiers, startup programs, and marketing costs
+- Someone should pay for all their free tiers, startup programs, and marketing costs
 - They have way too many infrastructure layers to deal with
 - They try to lock you in at every step
 - Their support sucks or is non-existent unless you pay for a premium plan
