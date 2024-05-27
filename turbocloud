@@ -18,7 +18,7 @@ do
     esac
 done
 
-scp -r "${PWD}"/ root@$1:/root/website
+scp -r "${PWD}"/ root@$public_ip:/root/website
 
 ssh root@$public_ip domain=$domain project_type=$project_type 'bash -s' <<'ENDSSH'
 
