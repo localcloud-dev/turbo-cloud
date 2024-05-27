@@ -6,12 +6,15 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 
 - Zero dependencies - your project will be available until your cloud provider is live
 - Daemonless
+- HTTPS for custom domains
+- Works with WebSocket (ws:// and wss://)
 - TurboCloud itself uses very small resources
 - Fully predictable cloud costs
 - Zero DevOps knowledge required
 - Only one command to deploy from your local machine
 - Works with virtually any cloud provider
 - No Docker registry required
+- Zero downtime deployments
 
 ## How to Deploy Static Websites
 
