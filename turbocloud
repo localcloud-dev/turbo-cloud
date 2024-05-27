@@ -9,6 +9,7 @@ domain=""
 project_type=""
 service_port="" #not used for static websites
 project_folder=${PWD}
+server_project_folder="/root/project"
 
 while getopts i:d:t: option
 do 
@@ -21,9 +22,9 @@ do
     esac
 done
 
-scp -r $project_folder root@$public_ip:/root/website
+scp -r $project_folder root@$public_ip:$server_project_folder
 
-ssh root@$public_ip domain=$domain project_type=$project_type service_port=$service_port 'bash -s' <<'ENDSSH'
+ssh root@$public_ip domain=$domain project_type=$project_type service_port=$service_port server_project_folder=$server_project_folder 'bash -s' <<'ENDSSH'
 
     ############################################
     ## Key-value storage
@@ -120,13 +121,18 @@ ssh root@$public_ip domain=$domain project_type=$project_type service_port=$serv
         sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     fi
     
-    sudo echo -e "FROM joseluisq/static-web-server:2-alpine\nCOPY ./ public/" >> /root/website/Dockerfile
-    sudo docker build /root/website/ -t static_img
-    sudo docker run -it -d --restart unless-stopped -p $available_port:80 static_img
+    #If the project type is static, we generate Dockerfile
+    if [[ "$project_type" == "static" ]]; then
+        sudo echo -e "FROM joseluisq/static-web-server:2-alpine\nCOPY ./ public/" >> $server_project_folder/Dockerfile
+    fi    
+    echo "Hey"
+
+    sudo docker build $server_project_folder -t deployment_img
+    sudo docker run -it -d --restart unless-stopped -p $available_port:80 deployment_img
 
     rm /etc/caddy/Caddyfile
     sudo echo -e "$domain {\nreverse_proxy * localhost:$available_port\n}" >> /etc/caddy/Caddyfile
     caddy reload -c /etc/caddy/Caddyfile
 
-    rm -rf /root/website
+    rm -rf $server_project_folder
 ENDSSH
