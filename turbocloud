@@ -6,7 +6,7 @@
 #Example: ./turbocloud.sh -i 12.32.22.43 -d myproject.com -t static
 public_ip=""
 domain=""
-project_type=""
+service_port=""
 
 while getopts i:d:t: option
 do 
@@ -15,12 +15,73 @@ do
         i)public_ip=${OPTARG};;
         d)domain=${OPTARG};;
         t)project_type=${OPTARG};;
+        p)service_port=${OPTARG};;
     esac
 done
 
-scp -r "${PWD}"/ root@$public_ip:/root/website
+scp -r [!.]* root@$public_ip:/root/website
 
-ssh root@$public_ip domain=$domain project_type=$project_type 'bash -s' <<'ENDSSH'
+ssh root@$public_ip domain=$domain project_type=$project_type service_port=$service_port 'bash -s' <<'ENDSSH'
+
+    ############################################
+    ## Key-value storage
+    ##
+    ## Usage:
+    ## kvset user mr.bob
+    ## kvset pass abc@123
+    ## kvget user
+    ## kvdel pass
+    ## kvclear
+    ## kvlist
+
+    default_kv_user_dir="$HOME/.kv-bash"
+
+    # Usage: kvget <key>
+    kvget() {
+        key="$1"
+        kv_user_dir=${KV_USER_DIR:-$default_kv_user_dir}
+        VALUE="$([ -f "$kv_user_dir/$key" ] && cat "$kv_user_dir/$key")"
+        echo "$VALUE"
+        
+        [ "$VALUE" != "" ]
+    }
+
+    # Usage: kvset <key> [value] 
+    kvset() {
+        key="$1"
+        value="$2"
+        kv_user_dir=${KV_USER_DIR:-$default_kv_user_dir}
+        test -d "$kv_user_dir" || mkdir "$kv_user_dir"
+        echo "$value" > "$kv_user_dir/$key"
+    }
+
+    # Usage: kvdel <key>
+    kvdel() {
+        key="$1"
+        kv_user_dir=${KV_USER_DIR:-$default_kv_user_dir}
+        test -f "$kv_user_dir/$key" && rm -f "$kv_user_dir/$key"
+    }
+
+    # list all key/value pairs to stdout
+    # Usage: kvlist
+    kvlist() {
+        kv_user_dir=${KV_USER_DIR:-$default_kv_user_dir}
+        for i in "$kv_user_dir/"*; do
+            if [ -f "$i" ]; then
+                key="$(basename "$i")"
+                echo "$key" "$(kvget "$key")"
+            fi
+        done 
+    }
+
+    # clear all key/value pairs in database
+    # Usage: kvclear
+    kvclear() {
+    kv_user_dir=${KV_USER_DIR:-$default_kv_user_dir}
+        rm -rf "$kv_user_dir"
+    }
+    ##Key-value storage end
+    #####################################
 
     sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
