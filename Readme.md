@@ -20,13 +20,13 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 - Check the `examples/static-website` directory to see how TurboCloud handles folders
 - `index.html` in each folder (including the root folder) will be available at `domain.com` and `domain.com/folder_name`
 - Each HTML file is available under two URLs: `/file_name` and `file_name.html`
-- We use `https://static-web-server.net/` for images with static websites
+- We use [Static Web Server](https://static-web-server.net/) for containers with static websites
 
 #### Deployment
 
 1. Order a VPS, cloud server, or dedicated server with a public IP address, fresh Ubuntu 22.04, and SSH access from any cloud provider.
 2. Add an A record with the IP address of your new server to your custom domain.
-3. In the root folder of your static website project, run the following command:
+3. In the root folder of your static website project, run the following command (replace ip_address_of_server and your_domain_without_http_https with real values):
 
 ```
 curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turbocloud | sh -s -- -i ip_address_of_server -d your_domain_without_http_https -t static
