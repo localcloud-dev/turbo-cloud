@@ -3,11 +3,24 @@
 #Parameters
 #$1 - public ip address of a server
 #$2 - domain
-#Example: ./deploy.sh 12.32.22.43 myproject.com
+#Example: ./turbocloud.sh -i 12.32.22.43 -d myproject.com -t static
+public_ip=""
+domain=""
+project_type=""
+
+while getopts i:d:t: option
+do 
+    case "${option}"
+        in
+        i)public_ip=${OPTARG};;
+        d)domain=${OPTARG};;
+        t)project_type=${OPTARG};;
+    esac
+done
 
 scp -r "${PWD}"/ root@$1:/root/website
 
-ssh root@$1 domain=$2 'bash -s' <<'ENDSSH'
+ssh root@$public_ip domain=$domain project_type=$project_type 'bash -s' <<'ENDSSH'
 
     sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg

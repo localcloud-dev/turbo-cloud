@@ -29,8 +29,9 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 3. In the root folder of your static website project, run the following command:
 
 ```
-./deploy.sh ip_address_of_server your_domain_without_http_https
+./turbocloud -i ip_address_of_server -d your_domain_without_http_https -t static
 ```
+4. Open the website URL in the browser
 
 ## Coming Soon
 
