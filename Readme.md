@@ -8,10 +8,11 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 
 - Zero dependencies - your project will be available until your cloud provider is live
 - Daemonless
+- Unbelievable lightweight - one script, less than 10KB
 - HTTPS for custom domains
 - Works with WebSocket services (ws:// and wss://)
 - TurboCloud itself uses very small resources
-- Fully predictable cloud costs
+- Fully predictable cloud costs (with cloud providers from "Recommended Cloud Providers" below)
 - Zero DevOps knowledge required
 - Only one command to deploy from your local machine
 - Works with virtually any cloud provider
@@ -27,7 +28,7 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 - Each HTML file is available under two URLs: `domain.com/file_name` and `domain.com/file_name.html`
 - We use [Static Web Server](https://static-web-server.net/) for containers with static websites
 
-#### Deployment
+#### Deployment steps
 
 1. Order a VPS, cloud server, or dedicated server with a public IP address, fresh Ubuntu 22.04, and SSH access from any cloud provider (see Recommended Cloud Providers section below).
 2. Add an A record with the IP address of your new server to your custom domain (DNS A record: your_domain.com or subdomain.your_domain.com -> IP address of a server created at the step 1)
@@ -37,12 +38,31 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turbocloud | sh -s -- -i ip_address_of_server -d your_domain_without_http_https -t static
 ```
 
-4. Open the website URL in the browser
+4. Open the URL you set with flag -d in step 3 in the browser
+
+## How to Deploy projects with Dockerfile
+
+#### Notes for Dockerfile
+
+- Dockerfile should be in the project's root folder
+- Dockerfile should include EXPOSE SOME_PORT, the same port should be set in -p parameter in the TurboCloud deploy command
+
+#### Deployment steps
+
+1. Order a VPS, cloud server, or dedicated server with a public IP address, fresh Ubuntu 22.04, and SSH access from any cloud provider (see Recommended Cloud Providers section below).
+2. Add an A record with the IP address of your new server to your custom domain (DNS A record: your_domain.com or subdomain.your_domain.com -> IP address of a server created at the step 1)
+3. In the root folder of your project with Dockerfile (Dockerfile should be in the project's root folder), run the following command (replace ip_address_of_server and your_domain_without_http_https with real values):
+
+```
+curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turbocloud | sh -s -- -i ip_address_of_server -d your_domain_without_http_https -t dockerfile
+```
+
+4. Open the URL you set with flag -d in step 3 in the browser
 
 ## Coming Soon
 
-- Any services and apps with Dockerfile
-- Frontend frameworks (Next.js, Vue.js, Svelte, etc.)
+- Any services and apps with Docker Compose
+- Native support for frontend frameworks (Next.js, Vue.js, Svelte, etc.)
 
 ## Recommended Cloud Providers
 - DigitalOcean
