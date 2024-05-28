@@ -60,6 +60,8 @@ We don't recommend using AWS, Google Cloud, or Azure because:
 - Their support sucks or is non-existent unless you pay for a premium plan
 - The learning curve is insane
 
+## Projects used in TurboCloud
+- https://github.com/damphat/kv-bash
 
 ## License
 
