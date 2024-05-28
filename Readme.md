@@ -1,6 +1,6 @@
-# TurboCloud: The Lightest and Easiest Way to Deploy Web Projects
+# TurboCloud: The Lightweight and Easy Way to Deploy Web Projects
 
-TurboCloud is the lightest and easiest way to deploy static websites, web apps, backends, IoT projects, and any other web projects without any vendor lock-in, straight from your local directory. No Git, no wasting time on configuration, no setup - just run one command on your local machine to get your web project online with automatic HTTPS, restarting, low resource usage, and almost zero deployment configuration.
+TurboCloud is the lightweight and easy way to deploy static websites, web apps, backends, IoT projects, and any other web projects without any vendor lock-in, straight from your local directory. No Git, no wasting time on configuration, no setup - just run one command on your local machine to get your web project online with automatic HTTPS, auto restarting, low resource usage, and almost zero deployment configuration.
 
 **Don't forget to click on Star if you like the project.**
 
@@ -32,10 +32,10 @@ TurboCloud is the lightest and easiest way to deploy static websites, web apps, 
 
 1. Order a VPS, cloud server, or dedicated server with a public IP address, fresh Ubuntu 22.04, and SSH access from any cloud provider (see Recommended Cloud Providers section below).
 2. Add an A record with the IP address of your new server to your custom domain (DNS A record: your_domain.com or subdomain.your_domain.com -> IP address of a server created at the step 1)
-3. In the root folder of your static website project, run the following command (replace ip_address_of_server and your_domain_without_http_https with real values):
+3. In the root folder of your static website project, run the following command (replace ip_address_of_server, expose_port_from_dockerfile and your_domain_without_http_https with real values):
 
 ```
-curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turbocloud | sh -s -- -i ip_address_of_server -d your_domain_without_http_https -t static
+curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turbocloud | sh -s -- -i ip_address_of_server -d your_domain_without_http_https -t static -p expose_port_from_dockerfile
 ```
 
 4. Open the URL you set with flag -d in step 3 in the browser
