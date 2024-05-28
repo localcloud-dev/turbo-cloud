@@ -62,6 +62,7 @@ We don't recommend using AWS, Google Cloud, or Azure because:
 
 ## Projects used in TurboCloud
 - https://github.com/damphat/kv-bash
+- https://static-web-server.net/
 
 ## License
 
