@@ -12,7 +12,7 @@ project_folder=${PWD}
 server_project_folder="/root/$(cat /proc/sys/kernel/random/uuid)"
 image_name=""
 
-while getopts i:d:t: option
+while getopts i:d:t:p: option
 do 
     case "${option}"
         in
