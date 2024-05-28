@@ -21,7 +21,7 @@ TurboCloud is the lightweight and easy way to deploy static websites, web apps, 
 
 ## How to Deploy Static Websites
 
-#### Notes for Static Websites
+#### Notes
 
 - Check the `examples/static-website` directory to see how TurboCloud handles folders
 - `index.html` in each folder (including the root folder) will be available at `domain.com` and `domain.com/folder_name`
@@ -42,7 +42,7 @@ curl https://raw.githubusercontent.com/localcloud-dev/turbo-cloud/main/turboclou
 
 ## How to Deploy projects with Dockerfile
 
-#### Notes for Dockerfile
+#### Notes
 
 - Dockerfile should be in the project's root folder
 - Dockerfile should include EXPOSE SOME_PORT, the same port should be set in -p parameter in the TurboCloud deploy command
